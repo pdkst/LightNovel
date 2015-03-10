@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.UI.ActRecom">
+
+    <LinearLayout
+        android:id="@+id/rl_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_noshape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/rg_bar_recom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_recom_daily"
+                style="@style/tab_bar"
+                android:checked="true"
+                android:text="今日推荐" />
+
+            <RadioButton
+                android:id="@+id/rb_recom_hot"
+                style="@style/tab_bar"
+                android:text="热门阅读" />
+
+            <RadioButton
+                android:id="@+id/rb_recom_anime"
+                style="@style/tab_bar"
+                android:text="即将动画" />
+
+            <RadioButton
+                android:id="@+id/rb_recom_favor"
+                style="@style/tab_bar"
+                android:text="收藏榜" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="82">
+        <include layout="@layout/inc_loading"/>
+        <include layout="@layout/inc_error"/>
+        <ListView
+            android:id="@+id/lv_recom"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="82">
+
+        </ListView>
+    </FrameLayout>
+
+</LinearLayout>

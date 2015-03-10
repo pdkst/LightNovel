@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/btn_footer_pre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_shape"
+        android:text="上一章" />
+
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/btn_footer_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_shape"
+        android:text="目录" />
+
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/btn_footer_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_shape"
+        android:text="下一章" />
+
+
+</LinearLayout>

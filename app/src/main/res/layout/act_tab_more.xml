@@ -1,0 +1,134 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.UI.ActMore">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_noshape"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="更多"
+            android:textColor="@color/uncheck"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="82"
+        android:background="@color/white_bg"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TableRow
+            android:id="@+id/tr_setting_feedback"
+            style="@style/tabrow_setting">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/feedback_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="意见反馈" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_setting"
+            style="@style/tabrow_setting">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/setting_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="程序设置" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_manage_user"
+            style="@style/tabrow_setting"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/user_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="个人中心" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_manage_down"
+            style="@style/tabrow_setting">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/checkdl_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="下载管理" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_partner"
+            style="@style/tabrow_setting"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/partner_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="合作伙伴" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_partner_sql"
+            style="@style/tabrow_setting">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/bg"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="数据支持" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_update"
+            style="@style/tabrow_setting"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/update_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="检测升级" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tr_info"
+            style="@style/tabrow_setting">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:drawableLeft="@drawable/info_m"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="关于程序" />
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

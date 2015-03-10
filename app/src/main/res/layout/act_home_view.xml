@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".view_frame"
+    android:id="@+id/rl_view">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="90"
+        android:id="@+id/home_view_content">
+
+<!--        <fragment
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/home_view_fg"
+            android:name="com.novel.lightnovel.UI.ActFavor" />-->
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_noshape"
+        android:id="@+id/ll_tab">
+
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/rg_view_tab">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_act_favor"
+                android:layout_weight="1"
+                android:checked="true"
+                android:button="@null"
+                android:drawableTop="@drawable/item_tab_favor" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_act_recom"
+                android:drawableTop="@drawable/item_tab_recom" />
+
+            <RadioButton
+                android:button="@null"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/rb_act_search"
+                android:drawableTop="@drawable/item_tab_search" />
+
+            <RadioButton
+                android:button="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/rb_act_more"
+                android:drawableTop="@drawable/item_tab_more" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dp"
+    android:focusable="true"
+    android:id="@+id/ll_vol_list"
+    android:clickable="true"
+    android:background="@drawable/item_favor_bg_page">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:id="@+id/iv_lv_cover"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/cover1185s" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/iv_lv_cover"
+        android:text="书名" />
+
+    <TextView
+        android:id="@+id/tvNewBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:lines="1"
+        android:layout_toRightOf="@id/iv_lv_cover"
+        android:layout_below="@id/tvName"
+        android:text="看到" />
+
+    <TextView
+        android:id="@+id/tvNewChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:lines="2"
+        android:ellipsize="end"
+        android:layout_toRightOf="@id/iv_lv_cover"
+        android:layout_below="@id/tvNewBook"
+        android:text="更新到" />
+
+</RelativeLayout>

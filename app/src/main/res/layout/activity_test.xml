@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.test.TestActivity">
+
+    <EditText
+        android:inputType="number"
+        android:text="162"
+        android:hint="输入轻之国度的小说ID，然后按保存↓"
+        android:id="@+id/et_test_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:onClick="onClick"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_test_store"
+        android:text="保存"/>
+    <Button
+        android:onClick="onClick"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_test_read"
+        android:text="读取："/>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_test"
+        style="?android:attr/progressBarStyleLarge" />
+
+</LinearLayout>

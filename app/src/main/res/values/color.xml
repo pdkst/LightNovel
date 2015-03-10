@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="nomal">#aaff7700</color>
+    <color name="checked">#ffff7700</color>
+    <color name="pressed">#88ff7700</color>
+    <color name="uncheck">#000000</color>
+    <color name="gray">#ffc8c8c8</color>
+    <color name="gray_s">#ffdddddd</color>
+    <color name="black">#000000</color>
+    <color name="black_bg">#80000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="white_bg">#aaffffff</color>
+</resources>

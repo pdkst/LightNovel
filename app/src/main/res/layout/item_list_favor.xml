@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:padding="6dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:id="@+id/rl_lv_favor"
+    android:background="@drawable/item_favor_bg_page">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:id="@+id/iv_lv_cover"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/cover1185s" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/iv_lv_cover"
+        android:text="书名" />
+
+    <TextView
+        android:id="@+id/tvNewBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:lines="1"
+        android:layout_toRightOf="@id/iv_lv_cover"
+        android:layout_below="@id/tvName"
+        android:text="未看" />
+
+    <TextView
+        android:id="@+id/tvNewChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_toRightOf="@id/iv_lv_cover"
+        android:layout_below="@id/tvNewBook"
+        android:text="暂无" />
+
+    <ImageButton
+        android:id="@+id/ibtnBookManage"
+        android:scaleType="center"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/item_btn_favor"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>

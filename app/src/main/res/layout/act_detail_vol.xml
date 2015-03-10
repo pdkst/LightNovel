@@ -1,0 +1,120 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.UI.ActVolDetail">
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_noshape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_detail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@drawable/read_back" />
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="100"
+            android:gravity="center"
+            android:text="-1"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_detail_download"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:padding="7dp"
+            android:text="下载"
+            android:textColor="@drawable/tv_tab_color" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/inc_loading" />
+
+        <include layout="@layout/inc_error" />
+
+        <ScrollView
+            android:id="@+id/sv_detail_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/bg_noshape"
+            android:layout_weight="90"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/inc_detail_info" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_detail_favor_vol"
+                        style="@style/btn_shape_detail"
+                        android:checked="false"
+                        android:text="收藏" />
+
+                    <RadioButton
+                        android:id="@+id/rb_detail_update_vol"
+                        style="@style/btn_shape_detail"
+                        android:text="更新" />
+
+                    <RadioButton
+                        android:id="@+id/rb_detail_star_vol"
+                        style="@style/btn_shape_detail"
+                        android:text="评分" />
+
+                    <RadioButton
+                        android:id="@+id/rb_detail_read_vol"
+                        style="@style/btn_shape_detail_s"
+                        android:text="阅读"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1px"
+                    android:background="?android:attr/listDivider" />
+
+                <TextView
+                    android:id="@+id/d_tv_about"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/d_tv_about" />
+
+                <LinearLayout
+                    android:id="@+id/ll_books_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </FrameLayout>
+</LinearLayout>

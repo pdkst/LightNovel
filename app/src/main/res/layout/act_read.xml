@@ -1,0 +1,46 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.UI.ActRead">
+
+    <include layout="@layout/inc_loading" />
+
+    <include layout="@layout/inc_error" />
+
+    <ScrollView
+        android:id="@+id/sv_read_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_read_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="标题:"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tv_read_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="正文"
+                android:textSize="18sp" />
+
+            <include layout="@layout/inc_read_footer" />
+        </LinearLayout>
+    </ScrollView>
+    <include layout="@layout/inc_read_menu"/>
+
+</FrameLayout>

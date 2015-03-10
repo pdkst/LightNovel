@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.UI.ActSearch">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_noshape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/et_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="9"
+            android:background="@drawable/search_text_bg"
+            android:singleLine="true"
+            android:textColor="@color/black_bg"
+            android:hint="书名||作者名"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/ib_search_bar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/item_tab_search"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <include layout="@layout/inc_loading" />
+
+        <include layout="@layout/inc_error" />
+
+        <GridView
+            android:id="@+id/gv_search_recom"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:visibility="gone"
+            android:numColumns="4"/>
+    </FrameLayout>
+</LinearLayout>

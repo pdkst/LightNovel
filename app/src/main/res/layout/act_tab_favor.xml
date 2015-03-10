@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.novel.lightnovel.UI.ActFavor">
+
+    <LinearLayout
+        android:id="@+id/rl_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_noshape"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@drawable/hd_def_proimg" />
+
+        <TextView
+            android:id="@+id/tv_my_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="登陆"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <RadioGroup
+            android:id="@+id/rg_bar_favor"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_favor_favor"
+                style="@style/tab_bar"
+                android:checked="true"
+                android:text="收藏" />
+
+            <RadioButton
+                android:id="@+id/rb_favor_history"
+                style="@style/tab_bar"
+                android:text="历史" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/lv_my_favor"
+        android:animation="@anim/slide_bottom_to_top"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="82">
+
+    </ListView>
+
+
+</LinearLayout>

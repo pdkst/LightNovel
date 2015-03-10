@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="高级设置">
+    <PreferenceCategory android:title="常规设置">
+        <ListPreference
+            android:key="setting_home_tab"
+            android:title="启动页设置"
+            android:summary="程序启动时显示："
+            android:dialogTitle="启动页设置："
+            android:defaultValue="TAB_RECOM"
+            android:entries="@array/setting_home_tab"
+            android:entryValues="@array/setting_home_tab_value">
+        </ListPreference>
+        <CheckBoxPreference
+            android:key="setting_exit"
+            android:title="退出提醒"
+            android:summary="按返回键退出时显示确认提醒"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="下载设置">
+        <ListPreference
+            android:key="setting_sd_path"
+            android:title="下载文件保存位置"
+            android:summary="手机SD卡的实际对应的路径"
+            android:dialogTitle="存储路径："
+            android:defaultValue="EXTERNAL_STORAGE"
+            android:entries="@array/setting_sd_path"
+            android:entryValues="@array/setting_sd_path_value">
+        </ListPreference>
+    </PreferenceCategory>
+</PreferenceScreen>
