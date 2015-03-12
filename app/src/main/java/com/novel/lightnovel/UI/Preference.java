@@ -23,6 +23,7 @@ import java.util.List;
 public class Preference extends PreferenceFragment implements android.preference.Preference.OnPreferenceChangeListener {
     private final static String TAG = "Preference";
 
+    private CheckBoxPreference setting_net_read;
     private ListPreference setting_home_tab;
     private CheckBoxPreference setting_exit;
     private ListPreference setting_sd_path;
@@ -35,9 +36,11 @@ public class Preference extends PreferenceFragment implements android.preference
         setting_home_tab = (ListPreference) findPreference("setting_home_tab");
         setting_exit = (CheckBoxPreference) findPreference("setting_exit");
         setting_sd_path = (ListPreference) findPreference("setting_sd_path");
+        setting_net_read = (CheckBoxPreference) findPreference("setting_net_read");
         setting_home_tab.setOnPreferenceChangeListener(this);
         setting_exit.setOnPreferenceChangeListener(this);
         setting_sd_path.setOnPreferenceChangeListener(this);
+        setting_net_read.setOnPreferenceChangeListener(this);
 
         String home = setting_home_tab.getValue();
         Log.e(TAG, "------sharePreference------>home = " + home);
@@ -62,10 +65,13 @@ public class Preference extends PreferenceFragment implements android.preference
     @Override
     public boolean onPreferenceChange(android.preference.Preference preference, Object newValue) {
         if (preference == setting_exit) {
-            Log.e(TAG, "------设置--exit---->" + String.valueOf(newValue));
+            Log.d(TAG, "------设置--exit---->" + String.valueOf(newValue));
             return true;
-        }else if (preference == setting_home_tab) {
-            Log.e(TAG, "-----newvalue.tostring--------->" + newValue.toString());
+        }else if (preference == setting_net_read) {
+            Log.d(TAG, "------设置--net_read---->" + String.valueOf(newValue));
+            return true;
+        } else if (preference == setting_home_tab) {
+            Log.d(TAG, "-----newvalue.tostring--------->" + newValue.toString());
             if ("TAB_RECOM".equals(newValue.toString())) {
                 preference.setSummary("小说推荐");
             } else if ("TAB_FAVOR".equals(newValue.toString())) {
@@ -73,7 +79,7 @@ public class Preference extends PreferenceFragment implements android.preference
             }
             return true;
         } else if (preference == setting_sd_path) {
-            Log.e(TAG, "-----newvalue.tostring--------->" + newValue.toString());
+            Log.d(TAG, "-----newvalue.tostring--------->" + newValue.toString());
             if ("EXTERNAL_STORAGE".equals(newValue.toString())) {
                 preference.setSummary(System.getenv("EXTERNAL_STORAGE") + "/imaho/down");
             } else if ("SECONDARY_STORAGE".equals(newValue.toString())) {

@@ -91,7 +91,6 @@
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="jsoup-1.8.1-javadoc" level="project" />
-    <orderEntry type="library" exported="" name="mysql-connector-java-5.1.26-bin" level="project" />
   </component>
 </module>
 

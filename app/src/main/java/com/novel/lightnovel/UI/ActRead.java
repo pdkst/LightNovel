@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -30,12 +31,17 @@ import com.novel.lightnovel.Utils.HtmlParser;
 
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ActRead extends ActionBarActivity implements View.OnClickListener {
     private static final String TAG = "ActRead";
+    public static final int CONNECT_ERROR = 0;
+    public static final int READ_ERROR = 1;
+    public static final int READ_OK = 2;
+
     private int v_id;
     private int b_id;
     private int view_id;
@@ -61,7 +67,7 @@ public class ActRead extends ActionBarActivity implements View.OnClickListener {
         @Override
         public void handleMessage(Message msg) {
             obtainMessage();
-            if (msg.what == DocumentRunable.READ_OK) {
+            if (msg.what == READ_OK) {
                 Document document = (Document) msg.obj;
                 if (document != null) {
                     setText(document);
@@ -103,7 +109,6 @@ public class ActRead extends ActionBarActivity implements View.OnClickListener {
         b_id = intent.getIntExtra("b_id", -1);
         view_id = intent.getIntExtra("view_id", -1);
         which = intent.getIntExtra("which", -2);
-
         if (b_id != -1) views = dataBase.getView_list(b_id);
         switch (which) {
             case -2:
@@ -188,7 +193,6 @@ public class ActRead extends ActionBarActivity implements View.OnClickListener {
         }
         Log.d(TAG, "---------->set text end");
     }
-
     /**
      * 下载view对应的网页，并显示加载页面，获取到的内容将在handleMessage里面处理
      *
@@ -206,7 +210,9 @@ public class ActRead extends ActionBarActivity implements View.OnClickListener {
         path = HtmlParser.getViewPath(view_id);
         if (pool != null) pool.shutdownNow();
         pool = Executors.newSingleThreadExecutor();
-        pool.submit(new DocumentRunable(handler, path));
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("setting_net_read",false)){
+            pool.submit(new MdocRun(path,handler));
+        }else pool.submit(new DocRun(path,handler));
         pool.shutdown();
         handler.postDelayed(new VisRunable(ll_read_loading, ll_read_error, sv_read_view), 7000);
     }
@@ -313,5 +319,66 @@ public class ActRead extends ActionBarActivity implements View.OnClickListener {
         history.put(D.view_id, view_id);
         history.put(D.pos, y);
         dataBase.insertHistory(history);
+    }
+
+    private class MdocRun implements Runnable{
+        private String url;
+        private Handler handler;
+
+        private MdocRun(String url, Handler handler) {
+            this.url = url;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+            //执行更新任务的子线程
+            Message msg = handler.obtainMessage(READ_ERROR);
+            try {
+                Document document = HtmlParser.mDoc(url);
+                if (HtmlParser.volTest(document)) {
+                    Log.e(TAG, "-----MdocRun----vTest-----> = true;");
+                    msg = handler.obtainMessage(READ_OK,document);
+                    handler.sendMessage(msg);
+                    fileFactory.saveView(v_id,view_id,document);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                msg.what = CONNECT_ERROR;
+                Log.e(TAG,"-----MdocRun----->connect_error--------->url="+url);
+            }
+            boolean b = handler.sendMessage(msg);
+            Log.e(TAG, "-----MdocRun----->send="+ b + ",msg.what=" + msg.what);
+        }
+    }
+    private class DocRun implements Runnable{
+        private String url;
+        private Handler handler;
+
+        private DocRun(String url, Handler handler) {
+            this.url = url;
+            this.handler = handler;
+        }
+
+        @Override
+        public void run() {
+            //执行更新任务的子线程
+            Message msg = handler.obtainMessage(READ_ERROR);
+            try {
+                Document document = HtmlParser.doc(url);
+                if (HtmlParser.volTest(document)) {
+                    Log.e(TAG, "-----docRun---->vTest=true;");
+                    msg = handler.obtainMessage(READ_OK,document);
+                    handler.sendMessage(msg);
+                    fileFactory.saveView(v_id,view_id,document);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                msg.what = CONNECT_ERROR;
+                Log.e(TAG,"-----docRun----->connect_error-->url="+url);
+            }
+            boolean b = handler.sendMessage(msg);
+            Log.e(TAG, "-----docRun----->send="+ b + ",msg.what=" + msg.what);
+        }
     }
 }

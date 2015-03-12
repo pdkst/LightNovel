@@ -2,8 +2,10 @@ package com.novel.lightnovel.Utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +25,8 @@ public class FileFactory {
 
     public String imaho = null;
     public static FileFactory fileFactory = null;
+    private static String type;
+    private String TAG = "FileFactory";
 
     private FileFactory() {
         init();
@@ -57,7 +61,7 @@ public class FileFactory {
     }
 
     /**
-     * file工厂类：
+     * file工厂类的实例化：
      *
      * @param path 内存卡跟路径
      * @return 返回一个fileFactory对象
@@ -68,13 +72,21 @@ public class FileFactory {
             return fileFactory;
         } else return fileFactory;
     }
+
+    /**
+     * file工厂类的实例化：
+     *
+     * @param context 上下文
+     * @return 返回一个fileFactory对象
+     */
     public static FileFactory newInstence(Context context) {
         if (fileFactory == null) {
-            String type = PreferenceManager.getDefaultSharedPreferences(context).getString("setting_sd_path", "EXTERNAL_STORAGE");
-            if ("EXTERNAL_STORAGE".equals(type)||"SECONDARY_STORAGE".equals(type)){
+            type = PreferenceManager.getDefaultSharedPreferences(context).getString("setting_sd_path", "EXTERNAL_STORAGE");
+            if ("EXTERNAL_STORAGE".equals(type) || "SECONDARY_STORAGE".equals(type)) {
+
                 fileFactory = new FileFactory(System.getenv().get(type));
                 return fileFactory;
-            }else{
+            } else {
                 return fileFactory = new FileFactory();
             }
         } else return fileFactory;
@@ -83,18 +95,17 @@ public class FileFactory {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * 保存字符流到文件，工具
+     * 保存byte流到文件，一般保存图片用
      *
      * @param inputStream 输入流
      * @param file        要保存的文件
      * @return 保存成功返回{@code true}。
      */
     private boolean saveBytes(InputStream inputStream, File file) {
-        if (!file.exists())file.mkdirs();
         FileOutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(file);
-            int len = 0;
+            int len;
             byte[] data = new byte[1024];
             while ((len = inputStream.read(data)) != -1) {
                 outputStream.write(data, 0, len);
@@ -109,7 +120,7 @@ public class FileFactory {
                     e.printStackTrace();
                 }
             }
-            if (outputStream!=null){
+            if (outputStream != null) {
                 try {
                     outputStream.close();
                 } catch (IOException e) {
@@ -125,10 +136,11 @@ public class FileFactory {
      *
      * @param document 要保存的document对象
      * @param file     保存的目标文件
-     * @return 成功返回ture
+     * @return 保存成功返回{@code true}。
      */
     private boolean save(Document document, File file) {
-        if (!file.exists())file.mkdirs();
+        Log.d(TAG,"FileFactory------------>file = "+file.getAbsolutePath());
+        Log.d(TAG,"FileFactory------------>doc = \n"+file.getAbsolutePath());
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(file);
@@ -185,7 +197,7 @@ public class FileFactory {
      *
      * @param inputStream 输入流
      * @param v_id        卷id
-     * @param b_id          book id
+     * @param b_id        book id
      * @return 保存成功返回true
      */
     public boolean saveCover(InputStream inputStream, int v_id, int b_id) {
@@ -193,11 +205,24 @@ public class FileFactory {
         return getSDstatus() && saveBytes(inputStream, file);
     }
 
+    /**
+     * 保存封面到内存卡中
+     * @param inputStream 封面的输入流
+     * @param v_id vollist id(卷封面，所以文件名置为0；
+     * @return 保存成功返回{@code true}；
+     */
     public boolean saveCover(InputStream inputStream, int v_id) {
         return saveCover(inputStream, v_id, 0);
     }
-    public Drawable readCover( int v_id, int id) {
-        return Drawable.createFromPath(getCoverPath(v_id,id));
+
+    /**
+     * 从内存卡中读取封面Drawable
+     * @param v_id vollist id
+     * @param b_id book id
+     * @return  Drawable对象
+     */
+    public Drawable readCover(int v_id, int b_id) {
+        return Drawable.createFromPath(getCoverPath(v_id, b_id));
     }
 
     /**
@@ -206,15 +231,23 @@ public class FileFactory {
      * @param inputStream 输入流
      * @param v_id        卷id
      * @param b_id        book id
-     * @param name        插画名
+     * @param name        插画文件名
      * @return 成功返回true
      */
     public boolean saveIllustration(InputStream inputStream, int v_id, int b_id, String name) {
         File file = new File(getIllustrationDir(v_id, b_id), getImgName(name));
         return getSDstatus() && saveBytes(inputStream, file);
     }
+
+    /**
+     * 从内存卡中读取插画到
+     * @param v_id    卷id
+     * @param b_id    book id
+     * @param name    插画文件名
+     * @return Drawable对象
+     */
     public Drawable readIllustration(int v_id, int b_id, String name) {
-        return Drawable.createFromPath(getIllustrationPath(v_id,b_id,name));
+        return Drawable.createFromPath(getIllustrationPath(v_id, b_id, name));
     }
 
 
@@ -228,6 +261,12 @@ public class FileFactory {
         return getSDstatus() && save(document, bookView);
     }
 
+    /**
+     * 从内存卡中读取view的document对象
+     * @param v_id 卷id
+     * @param view_id 章节id
+     * @return view的document对象
+     */
     public Document readView(int v_id, int view_id) {
         File file = new File(getVollistDir(v_id), getViewName(view_id));
         if (getSDstatus() && isViewExists(v_id, view_id)) {
@@ -240,22 +279,30 @@ public class FileFactory {
         return null;
     }
 
+    /**
+     * 保存推荐页的document对象到sd卡
+     * @param document 推荐页的document对象
+     * @return 保存成功返回{@code true} ；
+     */
     public boolean saveIndex(Document document) {
         File file = new File(getIndexDir(), getIndexName());
-        if (getSDstatus() && !isIndexExists()) {
-            return save(document, file);
-        } else if (isIndexFilesExists()) {
-            File indexDir = new File(getIndexDir());
-            File[] files = indexDir.listFiles();
-            for (File f : files) f.delete();
+        if (getSDstatus()) {
+            if (isIndexFilesExists()) {
+                File indexDir = new File(getIndexDir());
+                File[] files = indexDir.listFiles();
+                for (File f : files) f.delete();
+            }
             return save(document, file);
         }
         return false;
     }
 
-
+    /**
+     * 从内存卡中读取推荐页面（index）
+     *
+     * @return index的document对象
+     */
     public Document readIndex() {
-
         File file = new File(getIndexDir(), getIndexName());
         if (getSDstatus() && isIndexExists()) {
             try {
@@ -361,8 +408,10 @@ public class FileFactory {
         }
         return false;
     }
+
     /**
      * 检查首页信息的文件夹是否存在首页文件
+     *
      * @return 返回{@code true} 如果文件存在
      */
     public boolean isIndexFilesExists() {
@@ -378,13 +427,14 @@ public class FileFactory {
 
     /**
      * 检查首页信息的文件是否存在
+     *
      * @return 返回{@code true} 如果首页文件存在
      */
     public boolean isIndexExists() {
         if (getSDstatus()) {
             File file = new File(getIndexDir(), getIndexName());
             return file.exists();
-        }else return false;
+        } else return false;
     }
 
     public boolean isUserImExists() {
@@ -397,8 +447,10 @@ public class FileFactory {
 
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
-     *获取文件信息
+     * 获取文件信息
+     *
      * @return 返回 {@code true} 如果内置内存卡可用
      */
     public boolean getSDstatus() {
@@ -421,10 +473,10 @@ public class FileFactory {
         return getIllustrationDir(v_id, b_id) + "/" + getImgName(name);
     }
 
-	public File getViewfile(int v_id,int view_id){
+    public File getViewfile(int v_id, int view_id) {
 
-		return new File(getVollistDir(v_id),getViewName(view_id));
-	}
+        return new File(getVollistDir(v_id), getViewName(view_id));
+    }
 
     public String getViewName(int view_id) {
         return view_id + ".imh";
@@ -451,10 +503,7 @@ public class FileFactory {
     }
 
     public String getIndexName() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat s = new SimpleDateFormat("yyyyMMdd");
-        String time = s.format(calendar.getTime());
-        return time + ".imh";
+        return System.currentTimeMillis() / 86400000 + ".imh";
     }
 
     public String getIllustrationDir(int v_id, int b_id) {

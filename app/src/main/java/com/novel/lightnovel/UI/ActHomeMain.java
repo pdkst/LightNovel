@@ -90,6 +90,7 @@ public class ActHomeMain extends ActionBarActivity implements RadioGroup.OnCheck
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
+                        System.exit(0);
                     }
                 });
                 alertDialog.show();

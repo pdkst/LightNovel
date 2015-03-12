@@ -63,31 +63,26 @@ public class HtmlParser {
         return "http://lknovel.lightnovel.cn/main/view/" + view_id + ".html";
     }
 
-    public static String getSearchPath(String str) {
-        try {
-            return "http://lknovel.lightnovel.cn/main/booklist/" + URLEncoder.encode(str,"utf-8") + ".html";
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            Log.e(TAG,"-----HtmlParser------>字符串转换失败");
-            return "";
-        }
+    public static String getSearchPath(String str) throws UnsupportedEncodingException {
+        return "http://lknovel.lightnovel.cn/main/booklist/" + URLEncoder.encode(str, "utf-8") + ".html";
     }
 
     public static int getId(String link) {
-        Log.e(TAG,"---------link->id---->"+link);
-        if (link!=null)return Integer.parseInt(link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf(".")));
+        Log.e(TAG, "---------link->id---->" + link);
+        if (link != null)
+            return Integer.parseInt(link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf(".")));
         else return -1;
     }
 
     public static String getIdString(String link) {
-        Log.e(TAG,"---------link->id---->"+link);
-        if (link!=null) return link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf("."));
+        Log.e(TAG, "---------link->id---->" + link);
+        if (link != null) return link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf("."));
         return "";
     }
 
-    public static String subTime(String str){
-        Log.e(TAG,"---------link->id---->"+str);
-        return str.substring(0,str.lastIndexOf(" "));
+    public static String subTime(String str) {
+        Log.e(TAG, "---------link->id---->" + str);
+        return str.substring(0, str.lastIndexOf(" "));
     }
 
 
@@ -126,7 +121,7 @@ public class HtmlParser {
     }
 
     public static Document parse(String html) {
-        return Jsoup.parse(html,"http://lknovel.lightnovel.cn/");
+        return Jsoup.parse(html, "http://lknovel.lightnovel.cn/");
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -449,7 +444,7 @@ public class HtmlParser {
             book.put(D.v_id, v_id);                                                     //外键v_id
             books.add(book);
 
-            Elements lis = uls.get(i+1).select("li");
+            Elements lis = uls.get(i + 1).select("li");
             for (int j = 0; j < lis.size(); j++) {
                 view = new ContentValues();
                 Elements view_as = lis.get(j).select("a");
@@ -470,6 +465,7 @@ public class HtmlParser {
 
     /**
      * 返回path路径下载的InputStream;
+     *
      * @param path 文件路径
      */
     public static InputStream getInputStream(String path) throws IOException {

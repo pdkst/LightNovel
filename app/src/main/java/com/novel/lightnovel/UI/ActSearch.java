@@ -30,6 +30,7 @@ import com.novel.lightnovel.Utils.HtmlParser;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,11 +105,9 @@ public class ActSearch extends Fragment implements AdapterView.OnItemClickListen
 
     private void updata() {
         if (pool != null) pool.shutdownNow();
-        String path = "http://lknovel.lightnovel.cn/";
         pool = Executors.newSingleThreadExecutor();
-        pool.submit(new DocumentRunable(handler, path));
-        pool.shutdown();
-        handler.postDelayed(new VisRunable(ll_inc_loading, ll_inc_error, gv_search_recom), 7000);
+        pool.submit(new DocumentRunable(handler));
+        handler.postDelayed(new VisRunable(ll_inc_loading, ll_inc_error, gv_search_recom), 5000);
     }
 
     private List<Map<String, Object>> getGirdDatas() {
@@ -172,13 +171,16 @@ public class ActSearch extends Fragment implements AdapterView.OnItemClickListen
     }
 
     public void onSearch(String key) {
-        String url = HtmlParser.getSearchPath(key);
-        if (!TextUtils.isEmpty(url)) {
-            Intent i7 = getIn();
-            i7.putExtra("url", url);
-            i7.putExtra("title", ActVolList.SEARCH);
-            startActivity(i7);
-        } else {
+        try {
+            String url = HtmlParser.getSearchPath(key);
+            if (!TextUtils.isEmpty(url)) {
+                Intent i7 = getIn();
+                i7.putExtra("url", url);
+                i7.putExtra("title", ActVolList.SEARCH);
+                startActivity(i7);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
             Toast.makeText(context, "字符串转换失败！", Toast.LENGTH_SHORT).show();
         }
     }

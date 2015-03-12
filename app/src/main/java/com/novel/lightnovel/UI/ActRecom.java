@@ -25,6 +25,7 @@ import com.novel.lightnovel.DataBase.D;
 import com.novel.lightnovel.R;
 import com.novel.lightnovel.Thread.DocumentRunable;
 import com.novel.lightnovel.Thread.VisRunable;
+import com.novel.lightnovel.Utils.FileFactory;
 import com.novel.lightnovel.Utils.HtmlParser;
 
 import org.jsoup.nodes.Document;
@@ -86,6 +87,8 @@ public class ActRecom extends Fragment implements RadioGroup.OnCheckedChangeList
         rg_bar_recom.setOnCheckedChangeListener(this);
 
         vis = new VisRunable(ll_inc_loading, ll_inc_error, lv_recom);
+        FileFactory factory = FileFactory.newInstence(context);
+        if (factory.isIndexExists())document = factory.readIndex();
         update();
 
         return view;
@@ -93,9 +96,7 @@ public class ActRecom extends Fragment implements RadioGroup.OnCheckedChangeList
 
     private void update() {
         vis.load();
-        if (pool != null) {
-            pool.shutdownNow();
-        }
+        if (pool != null)pool.shutdownNow();
         pool = Executors.newSingleThreadExecutor();
         pool.submit(new DocumentRunable(handler));
         handler.postDelayed(new VisRunable(ll_inc_loading, ll_inc_error, lv_recom), 7000);

@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="高级设置">
+    <PreferenceCategory android:title="网络设置">
+        <CheckBoxPreference
+            android:key="setting_net_read"
+            android:title="使用移动网站"
+            android:summary="勾选后在阅读时从WAP网页获取数据"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:key="setting_net_ills"
+            android:title="显示插图"
+            android:summary="勾选后在阅读时网页获取插图数据"
+            android:enabled="false"
+            android:defaultValue="false">
+        </CheckBoxPreference>
+    </PreferenceCategory>
     <PreferenceCategory android:title="常规设置">
         <ListPreference
             android:key="setting_home_tab"
