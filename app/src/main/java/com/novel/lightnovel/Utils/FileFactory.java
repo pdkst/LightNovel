@@ -103,6 +103,8 @@ public class FileFactory {
      */
     private boolean saveBytes(InputStream inputStream, File file) {
         FileOutputStream outputStream = null;
+        File parent = file.getParentFile();
+        if (!parent.exists())parent.mkdirs();
         try {
             outputStream = new FileOutputStream(file);
             int len;
@@ -110,6 +112,7 @@ public class FileFactory {
             while ((len = inputStream.read(data)) != -1) {
                 outputStream.write(data, 0, len);
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -128,7 +131,7 @@ public class FileFactory {
                 }
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -140,8 +143,9 @@ public class FileFactory {
      */
     private boolean save(Document document, File file) {
         Log.d(TAG,"FileFactory------------>file = "+file.getAbsolutePath());
-        Log.d(TAG,"FileFactory------------>doc = \n"+file.getAbsolutePath());
         FileOutputStream fileOutputStream = null;
+        File parent = file.getParentFile();
+        if (!parent.exists())parent.mkdirs();
         try {
             fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(document.toString().getBytes("UTF-8"));

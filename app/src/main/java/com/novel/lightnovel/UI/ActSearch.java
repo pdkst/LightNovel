@@ -4,11 +4,13 @@ package com.novel.lightnovel.UI;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +45,7 @@ import java.util.concurrent.Executors;
  * A simple {@link Fragment} subclass.
  */
 public class ActSearch extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-
+    public static final String TAG = "ActSearch";
     private FileFactory f;
 
     private LinearLayout ll_inc_loading, ll_inc_error;
@@ -63,8 +65,9 @@ public class ActSearch extends Fragment implements AdapterView.OnItemClickListen
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == DocumentRunable.READ_OK) {
-                final Document document = (Document) msg.obj;
+                Document document = (Document) msg.obj;
                 f.saveIndex(document);
+                Log.d(TAG,"ActSearch-->");
                 docStr = document.toString();
                 vis.vis();
             }

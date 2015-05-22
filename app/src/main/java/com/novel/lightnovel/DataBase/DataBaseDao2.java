@@ -36,7 +36,7 @@ public class DataBaseDao2 extends DataBaseDao {
     private List<ContentValues> getCV(String sql) {
         String url = "jdbc:mysql://a7xsk.gotoftp4.com:3306/a7xsk";
         String user = "a7xsk";
-        String pass = "sdws12580";
+        String pass = "";
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (Exception e) {

@@ -29,13 +29,15 @@ public class ActHomeMain extends ActionBarActivity implements RadioGroup.OnCheck
         setContentView(R.layout.act_home_view);
         fragmentManager = getFragmentManager();
         String home = PreferenceManager.getDefaultSharedPreferences(this).getString("setting_home_tab", "TAB_RECOM");
-        if ("TAB_RECOM".equals(home))
+        rg_view_tab = (RadioGroup) findViewById(R.id.rg_view_tab);
+        rg_view_tab.setOnCheckedChangeListener(this);
+        if ("TAB_RECOM".equals(home)){
             fragmentManager.beginTransaction().replace(R.id.home_view_content, new ActRecom()).commit();
+            rg_view_tab.check(R.id.rb_act_recom);
+        }
         else
             fragmentManager.beginTransaction().replace(R.id.home_view_content, new ActFavor()).commit();
 
-        rg_view_tab = (RadioGroup) findViewById(R.id.rg_view_tab);
-        rg_view_tab.setOnCheckedChangeListener(this);
     }
 
     @Override
